@@ -1,7 +1,9 @@
 const express = require("express")
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
+const cors = require("cors");
+require("dotenv").config();
+const mongoose = require("mongoose");
 
 
 const app = express()
@@ -9,6 +11,9 @@ app.use(express.json());
 
 const bcryptSalt = bcrypt.genSaltSync(10);
 const jwtSecret = "bsbsfbrnsftentwnnwnwn";
+
+mongoose.connect(process.env.MONGO_URL);
+
 
 app.post("/register", async (req, res) => {
     const { name, email, password } = req.body;
