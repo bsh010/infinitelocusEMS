@@ -5,12 +5,11 @@ const cors = require("cors");
 require("dotenv").config();
 const mongoose = require("mongoose");
 
-
 const app = express()
-app.use(express.json());
 
 const bcryptSalt = bcrypt.genSaltSync(10);
 const jwtSecret = "bsbsfbrnsftentwnnwnwn";
+app.use(express.json());
 
 mongoose.connect(process.env.MONGO_URL);
 
@@ -45,4 +44,7 @@ app.post("/register", async (req, res) => {
     }
 })
  
-app.listen(3000, ()=> console.log("Server Listening on port 3000"))
+const PORT = process.env.PORT;
+app.listen(PORT, () => {
+   console.log(`Server is running on port ${PORT}`);
+})
