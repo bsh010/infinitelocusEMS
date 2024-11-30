@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const cors = require("cors");
 require("dotenv").config();
 const mongoose = require("mongoose");
+const UserModel = require("./models/User");
 
 const app = express()
 
@@ -15,6 +16,7 @@ mongoose.connect(process.env.MONGO_URL);
 
 
 app.post("/register", async (req, res) => {
+    console.log("hii")
     const { name, email, password } = req.body;
  
     try {
