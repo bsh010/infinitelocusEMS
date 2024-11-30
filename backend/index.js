@@ -44,7 +44,22 @@ app.post("/register", async (req, res) => {
     if (!passOk) {
        return res.status(401).json({ error: "Invalid password" });
     }
-})
+ 
+    jwt.sign(
+       {
+          email: userDoc.email,
+          id: userDoc._id,
+       },
+       jwtSecret,
+       {},
+       (err, token) => {
+          if (err) {
+             return res.status(500).json({ error: "Failed to generate token" });
+          }
+          res.cookie("token", token).json(userDoc);
+       }
+    );
+ });
  
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
